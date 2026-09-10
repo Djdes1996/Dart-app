@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dartpunt — online darts</title>
+<meta name="description" content="Online darts tegen een echte tegenstander: 501 of 301, dubbel uit.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%231a1a1a'/><circle cx='16' cy='16' r='9' fill='%23e8d9b0'/><circle cx='16' cy='16' r='5' fill='%2300843d'/><circle cx='16' cy='16' r='2.5' fill='%23c8102e'/></svg>">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="verbinding" id="verbinding" hidden></div>
+
+<header class="kop">
+  <h1 class="logo"><span class="logo-dart">🎯</span> Dartpunt</h1>
+  <p class="leus">Gooi een potje tegen een echte tegenstander</p>
+</header>
+
+<main class="paneel">
+
+  <!-- Naam invullen -->
+  <section class="scherm" id="scherm-naam">
+    <h2>Wie ben jij?</h2>
+    <form id="naam-formulier" class="rij">
+      <input id="naam-invoer" type="text" maxlength="16" autocomplete="nickname"
+             placeholder="Je naam" aria-label="Je naam" required>
+      <button type="submit" class="knop knop-groot">Naar binnen</button>
+    </form>
+    <p class="fijn">Geen account nodig. Je naam wordt alleen aan je tegenstander getoond.</p>
+  </section>
+
+  <!-- Lobby -->
+  <section class="scherm" id="scherm-lobby" hidden>
+    <h2>Hallo <span id="lobby-naam"></span>, wat wordt het?</h2>
+
+    <fieldset class="instellingen">
+      <legend>Instellingen</legend>
+      <label>
+        Beginstand
+        <select id="optie-score">
+          <option value="501" selected>501</option>
+          <option value="301">301</option>
+        </select>
+      </label>
+      <label>
+        Wedstrijd
+        <select id="optie-legs">
+          <option value="1">1 leg</option>
+          <option value="2">Beste van 3</option>
+          <option value="3" selected>Beste van 5</option>
+          <option value="5">Beste van 9</option>
+        </select>
+      </label>
+      <label class="vinkje">
+        <input id="optie-dubbel" type="checkbox" checked>
+        Dubbel uit
+      </label>
+    </fieldset>
+
+    <div class="keuzes">
+      <button class="knop knop-groot" id="knop-snel">Snel spelen</button>
+      <button class="knop" id="knop-kamer">Kamer maken</button>
+      <form class="rij" id="meedoen-formulier">
+        <input id="code-invoer" type="text" maxlength="4" placeholder="Code"
+               aria-label="Kamercode" autocapitalize="characters">
+        <button type="submit" class="knop">Meedoen</button>
+      </form>
+    </div>
+
+    <p class="fijn" id="lobby-cijfers"></p>
+  </section>
+
+  <!-- Wachten op tegenstander -->
+  <section class="scherm" id="scherm-wachten" hidden>
+    <h2 id="wachten-titel">Zoeken naar een tegenstander…</h2>
+    <div class="tollen" aria-hidden="true">🎯</div>
+    <p id="wachten-code" class="kamercode" hidden></p>
+    <p class="fijn" id="wachten-uitleg"></p>
+    <button class="knop" id="knop-annuleren">Terug</button>
+  </section>
+
+  <!-- Het spel -->
+  <section class="scherm scherm-spel" id="scherm-spel" hidden>
+
+    <div class="scorebord" id="scorebord"></div>
+
+    <div class="speelvloer">
+      <div class="bord-houder">
+        <canvas id="bord" width="560" height="560"
+                aria-label="Dartbord. Klik om je pijl te richten."></canvas>
+        <div class="bord-melding" id="bord-melding" hidden></div>
+      </div>
+
+      <aside class="zijkant">
+        <div class="beurt" id="beurt"></div>
+        <div class="pijlen" id="pijlen"></div>
+        <div class="advies" id="advies"></div>
+
+        <div class="praat">
+          <ul class="praat-lijst" id="praat-lijst"></ul>
+          <form class="rij" id="praat-formulier">
+            <input id="praat-invoer" type="text" maxlength="200"
+                   placeholder="Zeg iets…" aria-label="Bericht">
+            <button type="submit" class="knop knop-klein">Stuur</button>
+          </form>
+        </div>
+
+        <button class="knop knop-klein knop-stil" id="knop-weg">Wedstrijd verlaten</button>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<!-- Einde wedstrijd -->
+<div class="sluier" id="sluier" hidden>
+  <div class="kaart">
+    <h2 id="einde-titel"></h2>
+    <p id="einde-tekst"></p>
+    <div class="rij rij-midden">
+      <button class="knop knop-groot" id="knop-revanche">Revanche</button>
+      <button class="knop" id="knop-lobby">Naar de lobby</button>
+    </div>
+    <p class="fijn" id="einde-wacht" hidden></p>
+  </div>
+</div>
+
+<footer class="voet">
+  <p>Een eigen eerbetoon aan de spelletjessites van vroeger. Geen band met GamePoint of Spelpunt.</p>
+</footer>
+
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>
